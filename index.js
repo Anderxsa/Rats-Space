@@ -249,6 +249,7 @@ canvas.addEventListener("click", (e) => {
 //  mostrar cantidad de ratas restantes
 function updateRatsHudDOM() {
   const hudEl = document.getElementById("rats-hud");
+  const controlsEl = document.getElementById("controls-hud");
   const logoEl = document.querySelector(".logo-title");
   if (!hudEl) return;
   // Actualizar texto
@@ -260,6 +261,18 @@ function updateRatsHudDOM() {
     const bodyRect = document.body.getBoundingClientRect();
     const top = rect.top - bodyRect.top + rect.height + 8; // 8px gap
     hudEl.style.top = `${top}px`;
+    // Posicionar controles debajo del HUD de ratas
+    if (controlsEl) {
+      const hudRect = hudEl.getBoundingClientRect();
+      const controlsTop = hudRect.top - bodyRect.top + hudRect.height + 6; // pequeño espacio
+      controlsEl.style.top = `${controlsTop}px`;
+    }
+  } else if (controlsEl) {
+    // fallback: si no hay logo, coloca controles debajo del hud con un espacio fijo
+    const hudRect = hudEl.getBoundingClientRect();
+    const bodyRect = document.body.getBoundingClientRect();
+    const controlsTop = hudRect.top - bodyRect.top + hudRect.height + 6;
+    controlsEl.style.top = `${controlsTop}px`;
   }
 }
 
